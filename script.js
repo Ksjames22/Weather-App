@@ -5,7 +5,6 @@ const currentWeather = document.getElementById('current-weather');
 const forecast = document.getElementById('forecast');
 const historyList = document.getElementById('history-list');
 
-
 searchForm.addEventListener('submit', function(event) {
   event.preventDefault();
   const cityName = cityInput.value.trim();
@@ -15,10 +14,10 @@ searchForm.addEventListener('submit', function(event) {
   }
 });
 
-// Function to fetch weather data from OpenWeatherMap API
+
 async function getWeather(city) {
   try {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`);
     if (!response.ok) {
       throw new Error('City not found');
     }
@@ -33,7 +32,7 @@ async function getWeather(city) {
   }
 }
 
-// Function to render current weather and forecast
+
 function renderWeather(data) {
   // Clear previous data
   currentWeather.innerHTML = '';
@@ -95,4 +94,3 @@ function renderSearchHistory() {
 
 // Initial call to render search history on page load
 renderSearchHistory();
-
